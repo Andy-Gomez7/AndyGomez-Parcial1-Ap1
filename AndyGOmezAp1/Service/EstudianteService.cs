@@ -2,6 +2,7 @@ using AndyGOmezAp1.Context;
 using Microsoft.EntityFrameworkCore;
 using AndyGOmezAp1.Models;
 using Aplicada1.Core;
+using System.Linq.Expressions;
 
 namespace AndyGOmezAp.Services;
 
@@ -39,18 +40,29 @@ public class EstudianteService(IDbContextFactory<Contexto> DbFactory) : IService
         return await contexto.SaveChangesAsync() > 0;
     }
 
-    public Task<bool> Eliminar(int id)
+    public async Task<bool> Eliminar(int AutorId)
     {
-        throw new NotImplementedException();
+        await using var contexto = DbFactory.CreateDbContext();
+
+        return await contexto.Autores.ExecuteDeleteAsync() > 0;
     }
 
-    public Task<List<Autor>> GetList(System.Linq.Expressions.Expression<Func<Autor, bool>> criterio)
+    public async Task<List<Autor>> GetList(Expression<Func<Autor, bool>> criterio)
     {
-        throw new NotImplementedException();
+        await using var contexto = DbFactory.CreateDbContext();
+
+        return await contexto.Autores.Where(E => E.AutorId > 0).AsNoTracking().ToListAsync();
     }
 
-    public Task<bool> Guardar(Autor entidad)
+    public async Task<bool> Guardar(Autor autor)
     {
-        throw new NotImplementedException();
+        if (autor.AutorId == 0)
+        {
+            return await Guardar(autor);
+        }
+        else
+        {
+            return await Modificar(autor);
+        }
     }
 }
