@@ -1,0 +1,69 @@
+@page "/Index"
+@inject NavigationManager Navigation
+
+<PageTitle>Titulo</PageTitle>
+
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-header d-flex justify-content-between align-items-center" style="height: 54px;">
+            <h5 class="mb-0">Consulta</h5>
+            <a class="btn btn-primary" href="/Libro/Create">Crear</a>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-3">
+                    <label class="form-label" for="filtro">
+                        <strong>Filtrar por</strong>
+                    </label>
+                </div>
+
+                <div class="col-4">
+                    <label class="form-label" for="valorFiltro">
+                        <strong>Busca</strong>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <select class="form-select" @bind="filtro">
+                            <option value="">
+                                Elige una opcion
+                            </option>
+                    </select>
+                </div>
+
+                @*Busquedad*@
+                <div class="col-4">
+                    <div class="input-group">
+                        <input class="form-control"
+                                @bind="valorFiltro"
+                                placeholder="Buscar"/>
+
+                        <button type="form-label"
+                                class="btn btn-outline-primary"
+                                @onclick="">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+
+                @*Restablecer*@
+                <div class="col-auto">
+                    <button type="button"
+                            class="btn btn-outline-secondary"
+                            @onclick="">
+                        Restablcer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+    public List<Modelo1> listaModels {get; set;} = [];
+    public string? filtro {get; set;}
+    public string? valorFiltro{get; set;}
+}
