@@ -2,6 +2,8 @@ using AndyGomez_Ap1_P1.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
