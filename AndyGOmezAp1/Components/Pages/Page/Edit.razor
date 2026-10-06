@@ -38,7 +38,15 @@
             <ValidationMessage For="(() => Autor.Sueldo)"/>
         </div>
 
-        
+        <div>
+            <label class="form-label"><strong>@Mensaje</strong></label>
+        </div>
+
+        <div card="footer text-center" mt-2>
+            <a href="/Autor/Index" class="btn btn-secondary">Volver</a>
+            <button type="submit" class="btn btn-primary">Modificar</button>
+            <button type="button" class="btn btn-secondary" @onclick="Eliminar">Eliminar</button>
+        </div>
         
     </div>
 </div>
