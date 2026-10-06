@@ -19,24 +19,28 @@
         <div class="card-body">
 
             @*Nombre*@
-            <labe class="form-label"><strong>Nombre</strong></labe>
+            <label class="form-label"><strong>Nombre</strong></label>
             <InputText class="form-control" @bind-Value="Autor.Nombres"/>
             <ValidationMessage For="(() => Autor.Nombres)"/>
 
             @*Nacionalidad*@
-            <labe class="form-label"><strong>Nacionalidad</strong></labe>
+            <label class="form-label"><strong>Nacionalidad</strong></label>
             <InputText class="form-control" @bind-Value="Autor.Nacionalidad"/>
             <ValidationMessage For="(() => Autor.Nacionalidad)"/>
 
             @*Fecha de nacimiento*@
-            <labe class="form-label"><strong>FechaNacimiento</strong></labe>
+            <label class="form-label"><strong>FechaNacimiento</strong></label>
             <InputDate class="form-control" @bind-Value="Autor.FechaNacimiento"/>
             <ValidationMessage For="(() => Autor.FechaNacimiento)"/>
 
             @*Sueldo*@
-            <labe class="form-label"><strong>Sueldo</strong></labe>
+            <label class="form-label"><strong>Sueldo</strong></label>
             <InputDate class="form-control" @bind-Value="Autor.Sueldo"/>
             <ValidationMessage For="(() => Autor.Sueldo)"/>
+        </div>
+
+        <div>
+            <label class="form-label"><strong>@Mensaje</strong></label>
         </div>
 
         <div card="footer text-center" mt-2>
