@@ -1,6 +1,7 @@
 @page "/Autor/Index"
 @using AndyGOmezAp1.Models;
 @using AndyGOmezAp1.Services;
+@using Microsoft.AspNetCore.Components.QuickGrid
 @using static Microsoft.AspNetCore.Components.Web.RenderMode;
 @inject AutorService autorService;
 @inject NavigationManager Navegacion;
@@ -31,9 +32,19 @@
             <div class="row">
                 <div class="col-3">
                     <select class="form-select" @bind="Filtro">
-                            <option value="" selected disable >Seleccione</option>
-                            <option value=""></option>
+                            <option value="Nombre" selected disable >Seleccione</option>
+                            <option value="Nacionalidad"></option>
                     </select>
+                </div>
+
+                @*Tabla*@
+                <div>
+                    <QuickGrid Items="@listaAutores.AsQueryable()">
+                        <PropertyColumn Property="@(A => A.Nombres)" Title ="Nombre" Sortable="true"/>
+                        <PropertyColumn Property="@(A => A.Nacionalidad)" Title ="Nombre" Sortable="true"/>
+                        <PropertyColumn Property="@(A => A.FechaNacimiento)" Title ="Nombre" Sortable="true"/>
+                        <PropertyColumn Property="@(A => A.Sueldo)" Title ="Nombre" Sortable="true"/>
+                    </QuickGrid>
                 </div>
 
                 @*Busqueda*@
@@ -54,9 +65,34 @@
 </div>
 
 @code{
-    public List<Autor> listaModels {get; set;} = [];
+    public List<Autor> listaAutores {get; set;} = new List<Autor>();
     public String? Filtro {get; set;}
-    public String? ValorFiltro{get; set;}
+    public String? ValorFiltro {get; set;}
 
+    protected override async void OnInitialized()
+    {
+        listaAutores = await autorService.GetList(A => A.AutorId > 0);
+    }
 
+    public async Task Buscar()
+    {
+        if (Filtro.Trim() != "")
+        {
+            if (Filtro == "Nombre")
+            {
+                listaAutores = await autorService.GetList(A => A.Nombres.ToLower().Contains(ValorFiltro.ToLower()));
+            }
+            else if (Filtro == "Nacionalidad")
+            {
+                listaAutores = await autorService.GetList(A => A.Nacionalidad.ToLower().Contains(ValorFiltro.ToLower()));
+            }
+        }
+    }
+
+    public async Task Reestablecer()
+    {
+        listaAutores = await autorService.GetList(A => A.AutorId > 0);
+        Filtro = String.Empty;
+        ValorFiltro = String.Empty;
+    }
 }
