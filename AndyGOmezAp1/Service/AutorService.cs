@@ -44,7 +44,7 @@ public class AutorService(IDbContextFactory<Contexto> DbFactory) : IService<Auto
     {
         await using var contexto = DbFactory.CreateDbContext();
 
-        return await contexto.Autores.ExecuteDeleteAsync() > 0;
+        return await contexto.Autores.AsNoTracking().Where(E => E.AutorId == AutorId).ExecuteDeleteAsync() > 0;
     }
 
     public async Task<List<Autor>> GetList(Expression<Func<Autor, bool>> criterio)

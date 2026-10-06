@@ -1,4 +1,4 @@
-@page "/Estudiante/Edit"
+@page "/Autor/Edit"
 @using AndyGOmezAp1.Models;
 @using AndyGOmezAp1.Services;
 @using static Microsoft.AspNetCore.Components.Web.RenderMode;
@@ -6,7 +6,7 @@
 @inject NavigationManager Navegacion;
 @rendermode InteractiveServer
 
-<PageTitle>Editar Estudiante</PageTitle>
+
 
 @code{
     public String Mensaje { get; set; } = String.Empty;
@@ -14,15 +14,41 @@
 
     public async Task Modificar()
     {
-        var modificado = await autorService.Modificar(Autor);
-        if (modificado)
+        var existe = await autorService.Existe(Autor.Nombres);
+        if (existe)
         {
-            
+            var modificado = await autorService.Modificar(Autor);
+            if (modificado)
+            {
+                Mensaje = "El autor fue modificado";
+                Navegacion.NavigateTo("/Autor/Index");
+                return;
+            }
+            else
+            {
+                Mensaje = "El autor no fue modificado exitosamente";
+                return;
+            }   
         }
     }
 
     public async Task Eliminar()
     {
-        
+        var existe = await autorService.Existe(Autor.Nombres);
+        if (existe)
+        {
+            var eliminado = await autorService.Eliminar(Autor.AutorId);
+            if (eliminado)
+            {
+                Mensaje = "El autor fue modificado";
+                Navegacion.NavigateTo("/Autor/Index");
+                return;
+            }
+            else
+            {
+                Mensaje = "El autor fue modificado";
+                Navegacion.NavigateTo("/Autor/Index");
+            }   
+        }
     }
 }

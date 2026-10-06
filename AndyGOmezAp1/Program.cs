@@ -1,8 +1,15 @@
 using AndyGomez_Ap1_P1.Components;
+using AndyGOmezAp1.Services;
+using AndyGOmezAp1.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var ConStr = 
+var ConStr = builder.Configuration.GetConnectionString("ConStr");
+
+builder.Services.AddDbContextFactory<Contexto>(o => o.UseSqlServer(ConStr));
+
+builder.Services.AddScoped<AutorService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
