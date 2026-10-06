@@ -1,0 +1,28 @@
+@page "/Estudiante/Edit"
+@using AndyGOmezAp1.Models;
+@using AndyGOmezAp1.Services;
+@using static Microsoft.AspNetCore.Components.Web.RenderMode;
+@inject AutorService autorService;
+@inject NavigationManager Navegacion;
+@rendermode InteractiveServer
+
+<PageTitle>Editar Estudiante</PageTitle>
+
+@code{
+    public String Mensaje { get; set; } = String.Empty;
+    public Autor Autor { get; set; } = new Autor();
+
+    public async Task Modificar()
+    {
+        var modificado = await autorService.Modificar(Autor);
+        if (modificado)
+        {
+            
+        }
+    }
+
+    public async Task Eliminar()
+    {
+        
+    }
+}

@@ -4,9 +4,9 @@ using AndyGOmezAp1.Models;
 using Aplicada1.Core;
 using System.Linq.Expressions;
 
-namespace AndyGOmezAp.Services;
+namespace AndyGOmezAp1.Services;
 
-public class EstudianteService(IDbContextFactory<Contexto> DbFactory) : IService<Autor, int>
+public class AutorService(IDbContextFactory<Contexto> DbFactory) : IService<Autor, int>
 {
     public async Task<Autor?> Buscar(int AutorId)
     {

@@ -1,0 +1,73 @@
+@page "/Autor/Create"
+@using AndyGOmezAp1.Models;
+@using AndyGOmezAp1.Services;
+@using static Microsoft.AspNetCore.Components.Web.RenderMode;
+@inject AutorService autorService;
+@inject NavigationManager Navegacion;
+@rendermode InteractiveServer
+
+<PageTitle>Crear Autor</PageTitle>
+<EditForm Model="Autor" OnValidSubmit="Guardar"></EditForm>
+<DataAnnotationsValidator/>
+
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-hoader text-center">
+            <h5 class="card-title"><strong>Crear Autor</strong></h5>
+        </div>
+
+        <div class="card-body">
+
+            @*Nombre*@
+            <labe class="form-label"><strong>Nombre</strong></labe>
+            <InputText class="form-control" @bind-Value="Autor.Nombres"/>
+            <ValidationMessage For="(() => Autor.Nombres)"/>
+
+            @*Nacionalidad*@
+            <labe class="form-label"><strong>Nacionalidad</strong></labe>
+            <InputText class="form-control" @bind-Value="Autor.Nacionalidad"/>
+            <ValidationMessage For="(() => Autor.Nacionalidad)"/>
+
+            @*Fecha de nacimiento*@
+            <labe class="form-label"><strong>FechaNacimiento</strong></labe>
+            <InputDate class="form-control" @bind-Value="Autor.FechaNacimiento"/>
+            <ValidationMessage For="(() => Autor.FechaNacimiento)"/>
+
+            @*Sueldo*@
+            <labe class="form-label"><strong>Sueldo</strong></labe>
+            <InputDate class="form-control" @bind-Value="Autor.Sueldo"/>
+            <ValidationMessage For="(() => Autor.Sueldo)"/>
+        </div>
+
+        <div card="footer text-center" mt-2>
+            <a href="/Estudiante/Index" class="btn btn-secondary">Volver</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </div>
+</div>
+
+@code{
+    public String Mensaje { get; set; } = String.Empty;
+    public Autor Autor { get; set; } = new Autor();
+
+    public async Task Guardar()
+    {
+        var existe = await autorService.Existe(Autor.Nombres);
+        if (existe)
+        {
+            var guardado = await autorService.Guardar(Autor);
+
+            if (guardado)
+            {
+                Mensaje = "El autor se guardo correctamente";
+                Navegacion.NavigateTo("/Estudiante/Index");
+                return;
+            }
+            else
+            {
+                Mensaje = "El autor no se logro guardar correctamente";
+                return;
+            }
+        }
+    }
+}
