@@ -13,7 +13,7 @@
     <div class="card shadow-lg">
         <div class="card-header d-flex justify-content-between align-items-center" style="height: 54px;">
             <h5 class="mb-0">Indice Autores</h5>
-            <a class="btn btn-primary" href="/Autor/Create">Crear</a>
+            <a href="/Autor/Create" class="btn btn-primary">Crear</a>
         </div>
 
         <div class="card-body">
@@ -37,16 +37,6 @@
                     </select>
                 </div>
 
-                @*Tabla*@
-                <div>
-                    <QuickGrid Items="@listaAutores.AsQueryable()">
-                        <PropertyColumn Property="@(A => A.Nombres)" Title ="Nombre" Sortable="true"/>
-                        <PropertyColumn Property="@(A => A.Nacionalidad)" Title ="Nombre" Sortable="true"/>
-                        <PropertyColumn Property="@(A => A.FechaNacimiento)" Title ="Nombre" Sortable="true"/>
-                        <PropertyColumn Property="@(A => A.Sueldo)" Title ="Nombre" Sortable="true"/>
-                    </QuickGrid>
-                </div>
-
                 @*Busqueda*@
                 <div class="col-4">
                     <div class="input-group">
@@ -59,6 +49,17 @@
                 <div class="col-auto">
                     <button type="button"class="btn btn-outline-secondary"@onclick="">Reestablcer</button>
                 </div>
+
+                @*Tabla*@
+                <div>
+                    <QuickGrid Items="@listaAutores.AsQueryable()">
+                        <PropertyColumn Property="@(A => A.Nombres)" Title ="Nombre" Sortable="true"/>
+                        <PropertyColumn Property="@(A => A.Nacionalidad)" Title ="Nombre" Sortable="true"/>
+                        <PropertyColumn Property="@(A => A.FechaNacimiento)" Title ="Nombre" Sortable="true"/>
+                        <PropertyColumn Property="@(A => A.Sueldo)" Title ="Nombre" Sortable="true"/>
+                    </QuickGrid>
+                </div>
+
             </div>
         </div>
     </div>
